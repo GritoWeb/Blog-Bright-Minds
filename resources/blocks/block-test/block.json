@@ -1,0 +1,11 @@
+{
+    "name": "doctailwind/block-test",
+    "title": "Block Test",
+    "category": "design",
+    "icon": "block-default",
+    "description": "Custom Block Test block",
+    "textdomain": "doctailwind",
+    "editorScript": "file:./block.jsx",
+    "style": "file:./block.css",
+    "render": "file:./block.php"
+}
