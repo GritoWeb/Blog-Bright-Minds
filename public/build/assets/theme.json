@@ -1011,57 +1011,57 @@
         {
           "name": "Gray (50)",
           "slug": "gray-50",
-          "color": "oklch(98.5% .002 247.839)"
+          "color": "#f6f6f6"
         },
         {
           "name": "Gray (100)",
           "slug": "gray-100",
-          "color": "oklch(96.7% .003 264.542)"
+          "color": "#e7e7e7"
         },
         {
           "name": "Gray (200)",
           "slug": "gray-200",
-          "color": "oklch(92.8% .006 264.531)"
+          "color": "#d1d1d1"
         },
         {
           "name": "Gray (300)",
           "slug": "gray-300",
-          "color": "oklch(87.2% .01 258.338)"
+          "color": "#b0b0b0"
         },
         {
           "name": "Gray (400)",
           "slug": "gray-400",
-          "color": "oklch(70.7% .022 261.325)"
+          "color": "#888"
         },
         {
           "name": "Gray (500)",
           "slug": "gray-500",
-          "color": "oklch(55.1% .027 264.364)"
+          "color": "#6d6d6d"
         },
         {
           "name": "Gray (600)",
           "slug": "gray-600",
-          "color": "oklch(44.6% .03 256.802)"
+          "color": "#5d5d5d"
         },
         {
           "name": "Gray (700)",
           "slug": "gray-700",
-          "color": "oklch(37.3% .034 259.733)"
+          "color": "#4f4f4f"
         },
         {
           "name": "Gray (800)",
           "slug": "gray-800",
-          "color": "oklch(27.8% .033 256.848)"
+          "color": "#454545"
         },
         {
           "name": "Gray (900)",
           "slug": "gray-900",
-          "color": "oklch(21% .034 264.665)"
+          "color": "#3d3d3d"
         },
         {
           "name": "Gray (950)",
           "slug": "gray-950",
-          "color": "oklch(13% .028 261.692)"
+          "color": "#242424"
         },
         {
           "name": "Zinc (50)",
@@ -1231,12 +1231,27 @@
         {
           "name": "Black",
           "slug": "black",
-          "color": "#000"
+          "color": "#121218"
         },
         {
           "name": "White",
           "slug": "white",
           "color": "#fff"
+        },
+        {
+          "name": "Primary",
+          "slug": "primary",
+          "color": "#ffda00"
+        },
+        {
+          "name": "Primary (500)",
+          "slug": "primary-500",
+          "color": "#e6c400"
+        },
+        {
+          "name": "Gray",
+          "slug": "gray",
+          "color": "#242424"
         }
       ]
     },

@@ -1,0 +1,11 @@
+{
+    "name": "doctailwind/newsletter",
+    "title": "Newsletter",
+    "category": "design",
+    "icon": "block-default",
+    "description": "Custom Newsletter block",
+    "textdomain": "doctailwind",
+    "editorScript": "file:./block.jsx",
+    "style": "file:./block.css",
+    "render": "file:./block.php"
+}

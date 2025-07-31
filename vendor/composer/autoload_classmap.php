@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Blocks\\BlockManager' => $baseDir . '/app/Blocks/BlockManager.php',
+    'App\\Console\\Commands\\MakeBlockCommand' => $baseDir . '/app/Console/Commands/MakeBlockCommand.php',
     'App\\Providers\\ThemeServiceProvider' => $baseDir . '/app/Providers/ThemeServiceProvider.php',
     'App\\View\\Composers\\App' => $baseDir . '/app/View/Composers/App.php',
     'App\\View\\Composers\\Comments' => $baseDir . '/app/View/Composers/Comments.php',

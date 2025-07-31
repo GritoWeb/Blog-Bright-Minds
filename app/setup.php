@@ -153,6 +153,70 @@ add_action('widgets_init', function () {
         'id' => 'sidebar-footer',
     ] + $config);
 });
+
+/**
+ * Render callback for latest posts block
+ */
+if (!function_exists('render_latest_posts_block')) {
+    function render_latest_posts_block($attributes) {
+        $posts = get_posts([
+            'numberposts' => 3,
+            'post_status' => 'publish',
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'post_type' => 'post'
+        ]);
+
+        if (empty($posts)) {
+            return '<div class="latest-posts-block"><p style="padding: 20px; background: #f0f0f0; border: 1px solid #ddd;">Nenhum post encontrado. Total de posts: ' . wp_count_posts()->publish . '</p></div>';
+        }
+
+        ob_start();
+        ?>
+        <div class="latest-posts-block">
+            <div class="flex flex-col items-center justify-center">
+                <?php foreach ($posts as $post): ?>
+                    <?php
+                    setup_postdata($post);
+                    $featured_image = get_the_post_thumbnail_url($post->ID, 'medium_large');
+                    $excerpt = get_the_excerpt($post->ID);
+                    if (empty($excerpt)) {
+                        $excerpt = wp_trim_words($post->post_content, 20, '...');
+                    }
+                    ?>
+                    <div class="post-card w-[960px] bg-white overflow-hidden md:flex md:flex-row md:h-[480px] mb-6">
+                        <!-- Featured Image - Left Half on Desktop -->
+                        <div class="post-image h-48 md:h-full md:w-1/2 bg-gray-200" style="<?php echo $featured_image ? 'background-image: url(' . esc_url($featured_image) . '); background-size: cover; background-position: center;' : 'background: #f0f0f0;'; ?>">
+                            <?php if (!$featured_image): ?>
+                                <div style="height: 100%; display: flex; align-items: center; justify-content: center; color: #666;">
+                                    Sem imagem
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <!-- Content - Right Half on Desktop -->
+                        <div class="post-content p-6 md:h-full md:w-1/2 flex flex-col justify-between">
+                            <div>
+                                <h2 class="text-xl font-bold mb-3 text-black">
+                                    <a href="<?php echo esc_url(get_permalink($post->ID)); ?>" class="hover:text-primary transition-colors">
+                                        <?php echo esc_html(get_the_title($post->ID)); ?>
+                                    </a>
+                                </h2>
+                                <p class="text-gray-600 text-sm leading-relaxed">
+                                    <?php echo esc_html($excerpt); ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+                <?php wp_reset_postdata(); ?>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+}
+
 use App\Blocks\BlockManager;
 
 /**

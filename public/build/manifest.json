@@ -1,15 +1,30 @@
 {
   "editor.deps.json": {
-    "file": "assets/editor.deps-DRrbpNVc.json",
+    "file": "assets/editor.deps-CXX3P9b5.json",
     "src": "editor.deps.json"
   },
-  "resources/blocks/block-test/block.css": {
-    "file": "assets/block-Czy4EcCU.css",
-    "src": "resources/blocks/block-test/block.css",
+  "resources/blocks/cta-video/block.css": {
+    "file": "assets/block-C0tv-Y2A.css",
+    "src": "resources/blocks/cta-video/block.css",
+    "isEntry": true
+  },
+  "resources/blocks/last-posts/block.css": {
+    "file": "assets/block-Cx-JeZ2W.css",
+    "src": "resources/blocks/last-posts/block.css",
+    "isEntry": true
+  },
+  "resources/blocks/newsletter/block.css": {
+    "file": "assets/block-C_ALPx-3.css",
+    "src": "resources/blocks/newsletter/block.css",
+    "isEntry": true
+  },
+  "resources/blocks/page-title/block.css": {
+    "file": "assets/block-Dq68ASK6.css",
+    "src": "resources/blocks/page-title/block.css",
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-HMSDjXnQ.css",
+    "file": "assets/app-Dxb58o1M.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -19,12 +34,12 @@
     "isEntry": true
   },
   "resources/css/editor.css": {
-    "file": "assets/editor-Bm_Kypxv.css",
+    "file": "assets/editor-DJMEb1yq.css",
     "src": "resources/css/editor.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-CzCUMqEY.js",
+    "file": "assets/app-CFWxv6Pf.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -32,12 +47,12 @@
       "resources/js/blocks.js"
     ],
     "css": [
-      "assets/app-HMSDjXnQ.css",
+      "assets/app-Dxb58o1M.css",
       "assets/blocks-DUf_qGu0.css"
     ]
   },
   "resources/js/blocks.js": {
-    "file": "assets/blocks-B-QC3mYg.js",
+    "file": "assets/blocks-Dp2DexOf.js",
     "name": "blocks",
     "src": "resources/js/blocks.js",
     "isEntry": true,
@@ -46,7 +61,7 @@
     ]
   },
   "resources/js/editor.js": {
-    "file": "assets/editor-GGipLzCD.js",
+    "file": "assets/editor-C41oXOIv.js",
     "name": "editor",
     "src": "resources/js/editor.js",
     "isEntry": true,
@@ -54,7 +69,7 @@
       "resources/js/blocks.js"
     ],
     "css": [
-      "assets/editor-Bm_Kypxv.css",
+      "assets/editor-DJMEb1yq.css",
       "assets/blocks-DUf_qGu0.css"
     ]
   }

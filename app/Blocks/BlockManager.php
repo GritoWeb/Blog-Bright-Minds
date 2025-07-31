@@ -17,7 +17,10 @@ class BlockManager
     protected array $blocks = [
         // Add new blocks here - just the folder name!
         // Example: 'my-block', 'text-block', 'hero-section'
-            'block-test',
+            'newsletter',
+            'last-posts',
+            'cta-video',
+            'page-title',
     ];
 
     /**

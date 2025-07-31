@@ -371,10 +371,10 @@ class ComposerStaticInit16af317a7214006aae0c739a0f7d1061
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/support',
-            1 => __DIR__ . '/..' . '/illuminate/collections',
-            2 => __DIR__ . '/..' . '/illuminate/conditionable',
-            3 => __DIR__ . '/..' . '/illuminate/macroable',
+            0 => __DIR__ . '/..' . '/illuminate/collections',
+            1 => __DIR__ . '/..' . '/illuminate/conditionable',
+            2 => __DIR__ . '/..' . '/illuminate/macroable',
+            3 => __DIR__ . '/..' . '/illuminate/support',
         ),
         'Illuminate\\Session\\' => 
         array (
@@ -524,6 +524,8 @@ class ComposerStaticInit16af317a7214006aae0c739a0f7d1061
     );
 
     public static $classMap = array (
+        'App\\Blocks\\BlockManager' => __DIR__ . '/../..' . '/app/Blocks/BlockManager.php',
+        'App\\Console\\Commands\\MakeBlockCommand' => __DIR__ . '/../..' . '/app/Console/Commands/MakeBlockCommand.php',
         'App\\Providers\\ThemeServiceProvider' => __DIR__ . '/../..' . '/app/Providers/ThemeServiceProvider.php',
         'App\\View\\Composers\\App' => __DIR__ . '/../..' . '/app/View/Composers/App.php',
         'App\\View\\Composers\\Comments' => __DIR__ . '/../..' . '/app/View/Composers/Comments.php',

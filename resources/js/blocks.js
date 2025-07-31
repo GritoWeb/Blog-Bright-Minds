@@ -15,6 +15,9 @@ import '../css/blocks.css';
 // import '../blocks/my-block/block.jsx';
 
 // AUTO-IMPORTS: Created blocks are automatically imported below this line
-import '../blocks/block-test/block.jsx';
+import '../blocks/page-title/block.jsx';
+import '../blocks/cta-video/block.jsx';
+import '../blocks/last-posts/block.jsx';
+import '../blocks/newsletter/block.jsx';
 
 console.log('🎨 Auto Blocks - System loaded!');

@@ -1,0 +1,11 @@
+{
+    "name": "doctailwind/page-title",
+    "title": "Page Title",
+    "category": "design",
+    "icon": "block-default",
+    "description": "Custom Page Title block",
+    "textdomain": "doctailwind",
+    "editorScript": "file:./block.jsx",
+    "style": "file:./block.css",
+    "render": "file:./block.php"
+}

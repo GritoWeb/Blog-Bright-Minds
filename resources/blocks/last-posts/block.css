@@ -1,4 +1,4 @@
-.block-test-block {
+.last-posts-block {
     padding: 1.5rem;
     margin: 1rem 0;
     background: white;
@@ -6,18 +6,18 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.block-test-block h3 {
+.last-posts-block h3 {
     margin: 0 0 1rem 0;
     font-size: 1.25rem;
     font-weight: 600;
     color: #374151;
 }
 
-.block-test-block-editor {
+.last-posts-block-editor {
     background: #f9fafb;
     border: 2px dashed #d1d5db !important;
 }
 
-.block-test-block-editor:hover {
+.last-posts-block-editor:hover {
     border-color: #3b82f6 !important;
 }
