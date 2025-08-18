@@ -299,37 +299,6 @@ if (! function_exists('render_post_pair_block')) {
     }
 }
 
-// Register a server side render for the editor-saved block name
-add_action('init', function () {
-    if (function_exists('register_block_type')) {
-        $blockPath = get_template_directory() . '/resources/blocks/post-block';
-        $blockJson = $blockPath . '/block.json';
-
-        // If block.json exists, register the block by directory so metadata (editorScript/styles) are applied
-        if (file_exists($blockJson)) {
-            // If already registered, unregister first so we can attach render_callback properly
-            if (function_exists('unregister_block_type')) {
-                @unregister_block_type('meutema/post-block');
-            }
-
-            register_block_type($blockPath, [
-                'render_callback' => 'render_post_pair_block',
-            ]);
-
-            // Also ensure any legacy/alternate namespace names use the same render callback
-            if (function_exists('register_block_type')) {
-                // legacy namespace
-                @register_block_type('meutailwind/post-block', ['render_callback' => 'render_post_pair_block']);
-                @register_block_type('meutema/post-block', ['render_callback' => 'render_post_pair_block']);
-            }
-        } else {
-            // Fallback: register by name and attach render callback
-            register_block_type('meutema/post-block', [
-                'render_callback' => 'render_post_pair_block',
-            ]);
-
-            // Also register legacy namespace in fallback
-            @register_block_type('meutailwind/post-block', ['render_callback' => 'render_post_pair_block']);
-        }
-    }
-}, 20);
+// NOTE: Previously the post-block was server-side rendered via render_post_pair_block.
+// The block was converted to client-side editable (image/title/date/excerpt) and now saves its own HTML.
+// Therefore we no longer register a render_callback for the post-block here. Keep other block registrations as usual.
