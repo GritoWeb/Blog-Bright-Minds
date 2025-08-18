@@ -39,7 +39,7 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-iJw6JJUM.js",
+    "file": "assets/app-BQUWMqda.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -52,7 +52,7 @@
     ]
   },
   "resources/js/blocks.js": {
-    "file": "assets/blocks-BEoAWWA_.js",
+    "file": "assets/blocks-BWs8eVS5.js",
     "name": "blocks",
     "src": "resources/js/blocks.js",
     "isEntry": true,
@@ -61,7 +61,7 @@
     ]
   },
   "resources/js/editor.js": {
-    "file": "assets/editor-BkRdOrUe.js",
+    "file": "assets/editor-aFM1PaX0.js",
     "name": "editor",
     "src": "resources/js/editor.js",
     "isEntry": true,

@@ -1,5 +1,5 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, RichText, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import { useBlockProps, RichText, MediaUpload } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
 
 registerBlockType('meutema/post-block', {
@@ -41,23 +41,21 @@ registerBlockType('meutema/post-block', {
           {/* Left post */}
           <div className="post-item post-left w-1/2 px-4">
             <div className="post-image mb-4">
-              <MediaUploadCheck>
-                <MediaUpload
-                  onSelect={onSelectLeftImage}
-                  allowedTypes={[ 'image' ]}
-                  value={leftImageId}
-                  render={({ open }) => (
-                    <div>
-                      {leftImageUrl ? (
-                        <img src={leftImageUrl} alt="preview" className="w-full h-auto object-cover rounded" />
-                      ) : (
-                        <div className="w-full h-48 bg-gray-100 flex items-center justify-center rounded">Imagem do post (clique para selecionar)</div>
-                      )}
-                      <Button onClick={open} className="mt-2" isSecondary>Selecionar imagem</Button>
-                    </div>
-                  )}
-                />
-              </MediaUploadCheck>
+              <MediaUpload
+                onSelect={onSelectLeftImage}
+                allowedTypes={[ 'image' ]}
+                value={leftImageId}
+                render={({ open }) => (
+                  <div>
+                    {leftImageUrl ? (
+                      <img src={leftImageUrl} alt="preview" className="w-full h-auto object-cover rounded" />
+                    ) : (
+                      <div className="w-full h-48 bg-gray-100 flex items-center justify-center rounded">Imagem do post (clique para selecionar)</div>
+                    )}
+                    <Button type="button" onClick={(e) => { e.preventDefault(); open(); }} className="mt-2" isSecondary>Selecionar imagem</Button>
+                  </div>
+                )}
+              />
             </div>
 
             <RichText tagName="h2" value={leftTitle} onChange={(value) => setAttributes({ leftTitle: value })} placeholder="Título do post" className="post-title text-h3 font-heading mb-2" allowedFormats={['core/bold','core/italic']} />
@@ -68,23 +66,21 @@ registerBlockType('meutema/post-block', {
           {/* Right post */}
           <div className="post-item post-right w-1/2 px-4">
             <div className="post-image mb-4">
-              <MediaUploadCheck>
-                <MediaUpload
-                  onSelect={onSelectRightImage}
-                  allowedTypes={[ 'image' ]}
-                  value={rightImageId}
-                  render={({ open }) => (
-                    <div>
-                      {rightImageUrl ? (
-                        <img src={rightImageUrl} alt="preview" className="w-full h-auto object-cover rounded" />
-                      ) : (
-                        <div className="w-full h-48 bg-gray-100 flex items-center justify-center rounded">Imagem do post (clique para selecionar)</div>
-                      )}
-                      <Button onClick={open} className="mt-2" isSecondary>Selecionar imagem</Button>
-                    </div>
-                  )}
-                />
-              </MediaUploadCheck>
+              <MediaUpload
+                onSelect={onSelectRightImage}
+                allowedTypes={[ 'image' ]}
+                value={rightImageId}
+                render={({ open }) => (
+                  <div>
+                    {rightImageUrl ? (
+                      <img src={rightImageUrl} alt="preview" className="w-full h-auto object-cover rounded" />
+                    ) : (
+                      <div className="w-full h-48 bg-gray-100 flex items-center justify-center rounded">Imagem do post (clique para selecionar)</div>
+                    )}
+                    <Button type="button" onClick={(e) => { e.preventDefault(); open(); }} className="mt-2" isSecondary>Selecionar imagem</Button>
+                  </div>
+                )}
+              />
             </div>
 
             <RichText tagName="h2" value={rightTitle} onChange={(value) => setAttributes({ rightTitle: value })} placeholder="Título do post" className="post-title text-h3 font-heading mb-2" allowedFormats={['core/bold','core/italic']} />
