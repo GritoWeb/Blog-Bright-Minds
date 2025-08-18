@@ -6,8 +6,8 @@
 // Import main CSS styles
 import '../css/app.css';
 
-// Import block JavaScript for frontend
-import './blocks';
+// NOTE: Do NOT import './blocks' here — blocks are editor-only and rely on WordPress `wp` globals.
+// The editor bundle (`resources/js/editor.js`) already imports './blocks'.
 
 // Your custom JavaScript code here
 console.log('🎨 App loaded - Frontend');

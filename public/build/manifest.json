@@ -34,16 +34,12 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DIoZheem.js",
+    "file": "assets/app-RUjYIZFY.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
-    "imports": [
-      "resources/js/blocks.js"
-    ],
     "css": [
-      "assets/app-Di0DqAeY.css",
-      "assets/blocks-DUf_qGu0.css"
+      "assets/app-Di0DqAeY.css"
     ]
   },
   "resources/js/blocks.js": {

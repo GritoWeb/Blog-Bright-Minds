@@ -293,14 +293,24 @@ if (! function_exists('render_post_pair_block')) {
 // Register a server side render for the editor-saved block name
 add_action('init', function () {
     if (function_exists('register_block_type')) {
-        // Register render callback for the JS block name
-        register_block_type('meutailwind/post-block', [
-            'render_callback' => 'render_post_pair_block',
-        ]);
+        $blockPath = get_template_directory() . '/resources/blocks/post-block';
+        $blockJson = $blockPath . '/block.json';
 
-        // Also support alternative namespace used earlier if any
-        register_block_type('meutema/post-block', [
-            'render_callback' => 'render_post_pair_block',
-        ]);
+        // If block.json exists, register the block by directory so metadata (editorScript/styles) are applied
+        if (file_exists($blockJson)) {
+            // If already registered, unregister first so we can attach render_callback properly
+            if (function_exists('unregister_block_type')) {
+                @unregister_block_type('meutema/post-block');
+            }
+
+            register_block_type($blockPath, [
+                'render_callback' => 'render_post_pair_block',
+            ]);
+        } else {
+            // Fallback: register by name and attach render callback
+            register_block_type('meutema/post-block', [
+                'render_callback' => 'render_post_pair_block',
+            ]);
+        }
     }
 }, 20);
