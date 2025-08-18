@@ -219,46 +219,68 @@ class BlockManager
         $manifest = json_decode(file_get_contents($manifestPath), true);
         
         // Load block-specific JavaScript
-        $jsKeyCandidates = [
-            "resources/blocks/{$blockName}/block.jsx",
-            "resources/blocks/{$blockName}/block.js",
-        ];
+        // Only enqueue editor/block JS in the editor context; do not load editor-built block scripts on frontend
+        if ($context === 'editor') {
+            $jsKeyCandidates = [
+                "resources/blocks/{$blockName}/block.jsx",
+                "resources/blocks/{$blockName}/block.js",
+            ];
 
-        foreach ($jsKeyCandidates as $jsKey) {
-            if (isset($manifest[$jsKey])) {
-                $assetInfo = $manifest[$jsKey];
+            foreach ($jsKeyCandidates as $jsKey) {
+                if (isset($manifest[$jsKey])) {
+                    $assetInfo = $manifest[$jsKey];
+                    $assetUrl = get_template_directory_uri() . '/public/build/' . $assetInfo['file'];
+
+                    wp_enqueue_script(
+                        "block-{$blockName}-js",
+                        $assetUrl,
+                        ['wp-blocks', 'wp-element', 'wp-dom-ready'],
+                        $this->getAssetVersion($assetInfo),
+                        true
+                    );
+
+                    if (defined('WP_DEBUG') && WP_DEBUG) {
+                        error_log("BlockManager: Block-specific JS loaded for '{$blockName}' (editor): {$assetUrl}");
+                    }
+
+                    // Once found, stop checking other candidates
+                    break;
+                }
+            }
+        } else {
+            // Frontend context: only enqueue a dedicated frontend script if it exists (avoid loading editor scripts)
+            $frontendJsKey = "resources/blocks/{$blockName}/frontend.js";
+            if (isset($manifest[$frontendJsKey])) {
+                $assetInfo = $manifest[$frontendJsKey];
                 $assetUrl = get_template_directory_uri() . '/public/build/' . $assetInfo['file'];
-                
+
                 wp_enqueue_script(
-                    "block-{$blockName}-js",
+                    "block-{$blockName}-frontend-js",
                     $assetUrl,
-                    ['wp-blocks', 'wp-element', 'wp-dom-ready'],
+                    [],
                     $this->getAssetVersion($assetInfo),
                     true
                 );
-                
-                if (defined('WP_DEBUG') && WP_DEBUG) {
-                    error_log("BlockManager: Block-specific JS loaded for '{$blockName}': {$assetUrl}");
-                }
 
-                // Once found, stop checking other candidates
-                break;
+                if (defined('WP_DEBUG') && WP_DEBUG) {
+                    error_log("BlockManager: Block-specific JS loaded for '{$blockName}' (frontend): {$assetUrl}");
+                }
             }
         }
-        
+
         // Load block-specific CSS
         $cssKey = "resources/blocks/{$blockName}/block.css";
         if (isset($manifest[$cssKey])) {
             $assetInfo = $manifest[$cssKey];
             $assetUrl = get_template_directory_uri() . '/public/build/' . $assetInfo['file'];
-            
+
             wp_enqueue_style(
                 "block-{$blockName}-css",
                 $assetUrl,
                 [],
                 $this->getAssetVersion($assetInfo)
             );
-            
+
             if (defined('WP_DEBUG') && WP_DEBUG) {
                 error_log("BlockManager: Block-specific CSS loaded for '{$blockName}': {$assetUrl}");
             }
