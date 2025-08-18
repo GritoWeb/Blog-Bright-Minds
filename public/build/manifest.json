@@ -8,14 +8,38 @@
     "src": "resources/blocks/cta-video/block.css",
     "isEntry": true
   },
+  "resources/blocks/cta-video/block.jsx": {
+    "file": "assets/block-C4F_XhQu.js",
+    "name": "block",
+    "src": "resources/blocks/cta-video/block.jsx",
+    "isEntry": true
+  },
   "resources/blocks/newsletter/block.css": {
     "file": "assets/block-C_ALPx-3.css",
     "src": "resources/blocks/newsletter/block.css",
     "isEntry": true
   },
+  "resources/blocks/newsletter/block.jsx": {
+    "file": "assets/block-pV6411t_.js",
+    "name": "block",
+    "src": "resources/blocks/newsletter/block.jsx",
+    "isEntry": true
+  },
   "resources/blocks/page-title/block.css": {
     "file": "assets/block-Dq68ASK6.css",
     "src": "resources/blocks/page-title/block.css",
+    "isEntry": true
+  },
+  "resources/blocks/page-title/block.jsx": {
+    "file": "assets/block-Bu_zH_fT.js",
+    "name": "block",
+    "src": "resources/blocks/page-title/block.jsx",
+    "isEntry": true
+  },
+  "resources/blocks/post-block/block.jsx": {
+    "file": "assets/block-DCrlwuUj.js",
+    "name": "block",
+    "src": "resources/blocks/post-block/block.jsx",
     "isEntry": true
   },
   "resources/css/app.css": {
@@ -43,21 +67,31 @@
     ]
   },
   "resources/js/blocks.js": {
-    "file": "assets/blocks-D3f0pVS9.js",
+    "file": "assets/blocks-BjJNNdSa.js",
     "name": "blocks",
     "src": "resources/js/blocks.js",
     "isEntry": true,
+    "imports": [
+      "resources/blocks/page-title/block.jsx",
+      "resources/blocks/cta-video/block.jsx",
+      "resources/blocks/newsletter/block.jsx",
+      "resources/blocks/post-block/block.jsx"
+    ],
     "css": [
       "assets/blocks-DUf_qGu0.css"
     ]
   },
   "resources/js/editor.js": {
-    "file": "assets/editor-CaLziHUu.js",
+    "file": "assets/editor-DnLuPdSh.js",
     "name": "editor",
     "src": "resources/js/editor.js",
     "isEntry": true,
     "imports": [
-      "resources/js/blocks.js"
+      "resources/js/blocks.js",
+      "resources/blocks/page-title/block.jsx",
+      "resources/blocks/cta-video/block.jsx",
+      "resources/blocks/newsletter/block.jsx",
+      "resources/blocks/post-block/block.jsx"
     ],
     "css": [
       "assets/editor-nNES-wFr.css",

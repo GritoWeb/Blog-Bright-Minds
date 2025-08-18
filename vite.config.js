@@ -24,7 +24,13 @@ function discoverBlockAssets() {
   blockDirs.forEach(blockDir => {
     const blockPath = path.join(blocksDir, blockDir);
     
-    // Check if block.js exists
+    // Check if block.jsx exists (preferred)
+    const jsxFile = path.join(blockPath, 'block.jsx');
+    if (fs.existsSync(jsxFile)) {
+      blockAssets.push(jsxFile);
+    }
+
+    // Also check for block.js (fallback)
     const jsFile = path.join(blockPath, 'block.js');
     if (fs.existsSync(jsFile)) {
       blockAssets.push(jsFile);

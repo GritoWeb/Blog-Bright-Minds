@@ -219,21 +219,30 @@ class BlockManager
         $manifest = json_decode(file_get_contents($manifestPath), true);
         
         // Load block-specific JavaScript
-        $jsKey = "resources/blocks/{$blockName}/block.js";
-        if (isset($manifest[$jsKey])) {
-            $assetInfo = $manifest[$jsKey];
-            $assetUrl = get_template_directory_uri() . '/public/build/' . $assetInfo['file'];
-            
-            wp_enqueue_script(
-                "block-{$blockName}-js",
-                $assetUrl,
-                ['wp-blocks', 'wp-element', 'wp-dom-ready'],
-                $this->getAssetVersion($assetInfo),
-                true
-            );
-            
-            if (defined('WP_DEBUG') && WP_DEBUG) {
-                error_log("BlockManager: Block-specific JS loaded for '{$blockName}': {$assetUrl}");
+        $jsKeyCandidates = [
+            "resources/blocks/{$blockName}/block.jsx",
+            "resources/blocks/{$blockName}/block.js",
+        ];
+
+        foreach ($jsKeyCandidates as $jsKey) {
+            if (isset($manifest[$jsKey])) {
+                $assetInfo = $manifest[$jsKey];
+                $assetUrl = get_template_directory_uri() . '/public/build/' . $assetInfo['file'];
+                
+                wp_enqueue_script(
+                    "block-{$blockName}-js",
+                    $assetUrl,
+                    ['wp-blocks', 'wp-element', 'wp-dom-ready'],
+                    $this->getAssetVersion($assetInfo),
+                    true
+                );
+                
+                if (defined('WP_DEBUG') && WP_DEBUG) {
+                    error_log("BlockManager: Block-specific JS loaded for '{$blockName}': {$assetUrl}");
+                }
+
+                // Once found, stop checking other candidates
+                break;
             }
         }
         
