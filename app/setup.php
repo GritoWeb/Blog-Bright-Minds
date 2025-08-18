@@ -232,6 +232,15 @@ if (! function_exists('render_post_pair_block')) {
         $left_id = isset($attributes['leftPostId']) ? intval($attributes['leftPostId']) : 0;
         $right_id = isset($attributes['rightPostId']) ? intval($attributes['rightPostId']) : 0;
 
+        // If neither side is configured, show a helpful hint to editors only and render nothing for public
+        if ($left_id === 0 && $right_id === 0) {
+            if (is_user_logged_in() && current_user_can('edit_posts')) {
+                return '<div class="post-pair-block-empty p-4 border border-yellow-300 bg-yellow-50 text-sm">Post Block não configurado. No editor, selecione os posts esquerdo e direito e salve a página para ver o bloco no frontend.</div>';
+            }
+
+            return '';
+        }
+
         ob_start();
         ?>
         <div class="post-pair-block" style="max-width:1200px;margin:0 auto;padding:0 1rem;">
