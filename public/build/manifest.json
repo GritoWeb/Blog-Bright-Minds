@@ -1,6 +1,6 @@
 {
   "editor.deps.json": {
-    "file": "assets/editor.deps-CXX3P9b5.json",
+    "file": "assets/editor.deps-DKlweEj6.json",
     "src": "editor.deps.json"
   },
   "resources/blocks/cta-video/block.css": {
@@ -39,7 +39,7 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BQUWMqda.js",
+    "file": "assets/app-FRSt07QX.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -52,7 +52,7 @@
     ]
   },
   "resources/js/blocks.js": {
-    "file": "assets/blocks-BWs8eVS5.js",
+    "file": "assets/blocks-CK-Myr5D.js",
     "name": "blocks",
     "src": "resources/js/blocks.js",
     "isEntry": true,
@@ -61,7 +61,7 @@
     ]
   },
   "resources/js/editor.js": {
-    "file": "assets/editor-aFM1PaX0.js",
+    "file": "assets/editor-en3Fqw4w.js",
     "name": "editor",
     "src": "resources/js/editor.js",
     "isEntry": true,

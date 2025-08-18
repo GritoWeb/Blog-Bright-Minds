@@ -1,24 +1,20 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText, MediaUpload } from '@wordpress/block-editor';
-import { Button, SelectControl } from '@wordpress/components';
-import apiFetch from '@wordpress/api-fetch';
-import { useState, useEffect } from '@wordpress/element';
+import { Button } from '@wordpress/components';
 
 registerBlockType('meutema/post-block', {
   title: 'Post Block',
   icon: 'admin-post',
   category: 'layout',
-  description: 'Bloco que mostra dois posts lado a lado. Escolha os posts a serem exibidos.',
+  description: 'Bloco que mostra dois posts lado a lado. Cada lado é editável e permite selecionar imagem da biblioteca.',
 
   attributes: {
-    leftPostId: { type: 'number', default: 0 },
     leftTitle: { type: 'string', source: 'html', selector: '.post-left h2', default: 'Título de exemplo' },
     leftDate: { type: 'string', source: 'html', selector: '.post-left .post-date', default: '30/02/2500' },
     leftExcerpt: { type: 'string', source: 'html', selector: '.post-left .post-excerpt', default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
     leftImageUrl: { type: 'string', default: '' },
     leftImageId: { type: 'number', default: 0 },
 
-    rightPostId: { type: 'number', default: 0 },
     rightTitle: { type: 'string', source: 'html', selector: '.post-right h2', default: 'Título de exemplo' },
     rightDate: { type: 'string', source: 'html', selector: '.post-right .post-date', default: '30/02/2500' },
     rightExcerpt: { type: 'string', source: 'html', selector: '.post-right .post-excerpt', default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
@@ -30,83 +26,11 @@ registerBlockType('meutema/post-block', {
 
   edit({ attributes, setAttributes }) {
     const {
-      leftPostId, leftTitle, leftDate, leftExcerpt, leftImageUrl, leftImageId,
-      rightPostId, rightTitle, rightDate, rightExcerpt, rightImageUrl, rightImageId
+      leftTitle, leftDate, leftExcerpt, leftImageUrl, leftImageId,
+      rightTitle, rightDate, rightExcerpt, rightImageUrl, rightImageId
     } = attributes;
 
     const blockProps = useBlockProps({ className: 'post-block w-full' });
-
-    const [postsOptions, setPostsOptions] = useState([]);
-    const [loadingPosts, setLoadingPosts] = useState(true);
-
-    useEffect(() => {
-      let mounted = true;
-      setLoadingPosts(true);
-      apiFetch({ path: '/wp/v2/posts?per_page=50&_fields=id,title,excerpt,date,featured_media' })
-        .then((posts) => {
-          if (!mounted) return;
-          const opts = posts.map((p) => ({ value: p.id, label: (p.title && p.title.rendered) ? p.title.rendered : `Post ${p.id}`, raw: p }));
-          setPostsOptions(opts);
-        })
-        .catch(() => setPostsOptions([]))
-        .finally(() => mounted && setLoadingPosts(false));
-      return () => { mounted = false; };
-    }, []);
-
-    const fetchFeaturedImage = (mediaId) => {
-      if (!mediaId) return Promise.resolve(null);
-      return apiFetch({ path: `/wp/v2/media/${mediaId}?_fields=media_details,source_url` })
-        .then((m) => m.source_url)
-        .catch(() => null);
-    };
-
-    const onSelectPost = async (side, postId) => {
-      if (!postId) {
-        // clear
-        if (side === 'left') {
-          setAttributes({ leftPostId: 0, leftTitle: 'Título de exemplo', leftExcerpt: 'Lorem ipsum...', leftDate: '30/02/2500', leftImageUrl: '', leftImageId: 0 });
-        } else {
-          setAttributes({ rightPostId: 0, rightTitle: 'Título de exemplo', rightExcerpt: 'Lorem ipsum...', rightDate: '30/02/2500', rightImageUrl: '', rightImageId: 0 });
-        }
-        return;
-      }
-
-      const postRaw = postsOptions.find((o) => o.value === postId)?.raw;
-      if (!postRaw) {
-        // fetch single post
-        const post = await apiFetch({ path: `/wp/v2/posts/${postId}?_fields=id,title,excerpt,date,featured_media` });
-        await applyPostToSide(side, post);
-      } else {
-        await applyPostToSide(side, postRaw);
-      }
-    };
-
-    const applyPostToSide = async (side, post) => {
-      const imageUrl = post.featured_media ? await fetchFeaturedImage(post.featured_media) : null;
-      if (side === 'left') {
-        setAttributes({
-          leftPostId: post.id,
-          leftTitle: post.title && post.title.rendered ? post.title.rendered : '',
-          leftExcerpt: post.excerpt && post.excerpt.rendered ? stripTags(post.excerpt.rendered) : '',
-          leftDate: post.date ? new Date(post.date).toLocaleDateString() : '',
-          leftImageUrl: imageUrl || '',
-          leftImageId: post.featured_media || 0,
-        });
-      } else {
-        setAttributes({
-          rightPostId: post.id,
-          rightTitle: post.title && post.title.rendered ? post.title.rendered : '',
-          rightExcerpt: post.excerpt && post.excerpt.rendered ? stripTags(post.excerpt.rendered) : '',
-          rightDate: post.date ? new Date(post.date).toLocaleDateString() : '',
-          rightImageUrl: imageUrl || '',
-          rightImageId: post.featured_media || 0,
-        });
-      }
-    };
-
-    const stripTags = (html) => {
-      return html ? html.replace(/<[^>]*>/g, '') : '';
-    };
 
     const onSelectLeftImage = (media) => setAttributes({ leftImageUrl: media.url, leftImageId: media.id });
     const onSelectRightImage = (media) => setAttributes({ rightImageUrl: media.url, rightImageId: media.id });
@@ -116,15 +40,7 @@ registerBlockType('meutema/post-block', {
         <div className="post-block__inner flex flex-wrap -mx-4">
           {/* Left post */}
           <div className="post-item post-left w-1/2 px-4">
-            <SelectControl
-              label="Selecionar post (esquerda)"
-              value={leftPostId}
-              options={[{ value: 0, label: '— Selecionar —' }, ...postsOptions]}
-              onChange={(val) => onSelectPost('left', Number(val))}
-              disabled={loadingPosts}
-            />
-
-            <div className="post-image mb-4 mt-2">
+            <div className="post-image mb-4">
               <MediaUpload
                 onSelect={onSelectLeftImage}
                 allowedTypes={[ 'image' ]}
@@ -136,7 +52,9 @@ registerBlockType('meutema/post-block', {
                     ) : (
                       <div className="w-full h-48 bg-gray-100 flex items-center justify-center rounded">Imagem do post (clique para selecionar)</div>
                     )}
-                    <Button type="button" onClick={(e) => { e.preventDefault(); open(); }} className="mt-2" isSecondary>Selecionar imagem</Button>
+                    <Button type="button" onClick={(e) => { e.preventDefault(); open(); }} className="mt-2" isSecondary>
+                      Selecionar imagem
+                    </Button>
                   </div>
                 )}
               />
@@ -149,15 +67,7 @@ registerBlockType('meutema/post-block', {
 
           {/* Right post */}
           <div className="post-item post-right w-1/2 px-4">
-            <SelectControl
-              label="Selecionar post (direita)"
-              value={rightPostId}
-              options={[{ value: 0, label: '— Selecionar —' }, ...postsOptions]}
-              onChange={(val) => onSelectPost('right', Number(val))}
-              disabled={loadingPosts}
-            />
-
-            <div className="post-image mb-4 mt-2">
+            <div className="post-image mb-4">
               <MediaUpload
                 onSelect={onSelectRightImage}
                 allowedTypes={[ 'image' ]}
@@ -169,7 +79,9 @@ registerBlockType('meutema/post-block', {
                     ) : (
                       <div className="w-full h-48 bg-gray-100 flex items-center justify-center rounded">Imagem do post (clique para selecionar)</div>
                     )}
-                    <Button type="button" onClick={(e) => { e.preventDefault(); open(); }} className="mt-2" isSecondary>Selecionar imagem</Button>
+                    <Button type="button" onClick={(e) => { e.preventDefault(); open(); }} className="mt-2" isSecondary>
+                      Selecionar imagem
+                    </Button>
                   </div>
                 )}
               />
