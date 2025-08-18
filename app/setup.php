@@ -306,11 +306,21 @@ add_action('init', function () {
             register_block_type($blockPath, [
                 'render_callback' => 'render_post_pair_block',
             ]);
+
+            // Also ensure any legacy/alternate namespace names use the same render callback
+            if (function_exists('register_block_type')) {
+                // legacy namespace
+                @register_block_type('meutailwind/post-block', ['render_callback' => 'render_post_pair_block']);
+                @register_block_type('meutema/post-block', ['render_callback' => 'render_post_pair_block']);
+            }
         } else {
             // Fallback: register by name and attach render callback
             register_block_type('meutema/post-block', [
                 'render_callback' => 'render_post_pair_block',
             ]);
+
+            // Also register legacy namespace in fallback
+            @register_block_type('meutailwind/post-block', ['render_callback' => 'render_post_pair_block']);
         }
     }
 }, 20);
