@@ -8,11 +8,6 @@
     "src": "resources/blocks/cta-video/block.css",
     "isEntry": true
   },
-  "resources/blocks/last-posts/block.css": {
-    "file": "assets/block-Cx-JeZ2W.css",
-    "src": "resources/blocks/last-posts/block.css",
-    "isEntry": true
-  },
   "resources/blocks/newsletter/block.css": {
     "file": "assets/block-C_ALPx-3.css",
     "src": "resources/blocks/newsletter/block.css",
@@ -24,7 +19,7 @@
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-Dxb58o1M.css",
+    "file": "assets/app-Di0DqAeY.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -34,12 +29,12 @@
     "isEntry": true
   },
   "resources/css/editor.css": {
-    "file": "assets/editor-DJMEb1yq.css",
+    "file": "assets/editor-nNES-wFr.css",
     "src": "resources/css/editor.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-FRSt07QX.js",
+    "file": "assets/app-DIoZheem.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -47,12 +42,12 @@
       "resources/js/blocks.js"
     ],
     "css": [
-      "assets/app-Dxb58o1M.css",
+      "assets/app-Di0DqAeY.css",
       "assets/blocks-DUf_qGu0.css"
     ]
   },
   "resources/js/blocks.js": {
-    "file": "assets/blocks-CK-Myr5D.js",
+    "file": "assets/blocks-D3f0pVS9.js",
     "name": "blocks",
     "src": "resources/js/blocks.js",
     "isEntry": true,
@@ -61,7 +56,7 @@
     ]
   },
   "resources/js/editor.js": {
-    "file": "assets/editor-en3Fqw4w.js",
+    "file": "assets/editor-CaLziHUu.js",
     "name": "editor",
     "src": "resources/js/editor.js",
     "isEntry": true,
@@ -69,7 +64,7 @@
       "resources/js/blocks.js"
     ],
     "css": [
-      "assets/editor-DJMEb1yq.css",
+      "assets/editor-nNES-wFr.css",
       "assets/blocks-DUf_qGu0.css"
     ]
   }

@@ -226,3 +226,81 @@ add_action('init', function () {
     $blockManager = new BlockManager();
     $blockManager->register();
 });
+
+if (! function_exists('render_post_pair_block')) {
+    function render_post_pair_block($attributes) {
+        $left_id = isset($attributes['leftPostId']) ? intval($attributes['leftPostId']) : 0;
+        $right_id = isset($attributes['rightPostId']) ? intval($attributes['rightPostId']) : 0;
+
+        ob_start();
+        ?>
+        <div class="post-pair-block" style="max-width:1200px;margin:0 auto;padding:0 1rem;">
+            <div class="post-pair__inner flex flex-wrap -mx-4">
+                <div class="post-item w-1/2 px-4">
+                    <?php if ($left_id && ($post = get_post($left_id))): setup_postdata($post);
+                        $featured = get_the_post_thumbnail_url($post->ID, 'medium_large');
+                        $excerpt = get_the_excerpt($post->ID);
+                        if (empty($excerpt)) {
+                            $excerpt = wp_trim_words($post->post_content, 20, '...');
+                        }
+                        ?>
+                        <a href="<?php echo esc_url(get_permalink($post->ID)); ?>" class="post-card block overflow-hidden hover:shadow-lg transition-shadow">
+                            <?php if ($featured): ?>
+                                <img src="<?php echo esc_url($featured); ?>" alt="" class="w-full h-48 object-cover" />
+                            <?php endif; ?>
+
+                            <div class="p-4">
+                                <h3 class="font-heading text-h4 mb-2"><?php echo esc_html(get_the_title($post->ID)); ?></h3>
+                                <div class="text-sm text-gray-600 mb-3"><?php echo esc_html(get_the_date('', $post->ID)); ?></div>
+                                <p class="text-base text-gray-800"><?php echo esc_html($excerpt); ?></p>
+                            </div>
+                        </a>
+                    <?php else: ?>
+                        <div class="post-card-empty">&nbsp;</div>
+                    <?php endif; wp_reset_postdata(); ?>
+                </div>
+
+                <div class="post-item w-1/2 px-4">
+                    <?php if ($right_id && ($post = get_post($right_id))): setup_postdata($post);
+                        $featured = get_the_post_thumbnail_url($post->ID, 'medium_large');
+                        $excerpt = get_the_excerpt($post->ID);
+                        if (empty($excerpt)) {
+                            $excerpt = wp_trim_words($post->post_content, 20, '...');
+                        }
+                        ?>
+                        <a href="<?php echo esc_url(get_permalink($post->ID)); ?>" class="post-card block overflow-hidden hover:shadow-lg transition-shadow">
+                            <?php if ($featured): ?>
+                                <img src="<?php echo esc_url($featured); ?>" alt="" class="w-full h-48 object-cover" />
+                            <?php endif; ?>
+
+                            <div class="p-4">
+                                <h3 class="font-heading text-h4 mb-2"><?php echo esc_html(get_the_title($post->ID)); ?></h3>
+                                <div class="text-sm text-gray-600 mb-3"><?php echo esc_html(get_the_date('', $post->ID)); ?></div>
+                                <p class="text-base text-gray-800"><?php echo esc_html($excerpt); ?></p>
+                            </div>
+                        </a>
+                    <?php else: ?>
+                        <div class="post-card-empty">&nbsp;</div>
+                    <?php endif; wp_reset_postdata(); ?>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+}
+
+// Register a server side render for the editor-saved block name
+add_action('init', function () {
+    if (function_exists('register_block_type')) {
+        // Register render callback for the JS block name
+        register_block_type('meutailwind/post-block', [
+            'render_callback' => 'render_post_pair_block',
+        ]);
+
+        // Also support alternative namespace used earlier if any
+        register_block_type('meutema/post-block', [
+            'render_callback' => 'render_post_pair_block',
+        ]);
+    }
+}, 20);

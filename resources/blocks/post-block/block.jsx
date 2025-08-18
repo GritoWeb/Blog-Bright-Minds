@@ -1,6 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, RichText, MediaUpload } from '@wordpress/block-editor';
-import { Button, SelectControl } from '@wordpress/components';
+import { useBlockProps } from '@wordpress/block-editor';
+import { SelectControl } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import { useState, useEffect } from '@wordpress/element';
 
@@ -12,26 +12,26 @@ registerBlockType('meutema/post-block', {
 
   attributes: {
     leftPostId: { type: 'number', default: 0 },
-    leftTitle: { type: 'string', source: 'html', selector: '.post-left h2', default: 'Título de exemplo' },
-    leftDate: { type: 'string', source: 'html', selector: '.post-left .post-date', default: '30/02/2500' },
-    leftExcerpt: { type: 'string', source: 'html', selector: '.post-left .post-excerpt', default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+    leftTitle: { type: 'string', default: '' },
+    leftDate: { type: 'string', default: '' },
+    leftExcerpt: { type: 'string', default: '' },
     leftImageUrl: { type: 'string', default: '' },
-    leftImageId: { type: 'number', default: 0 },
+    leftPostUrl: { type: 'string', default: '' },
 
     rightPostId: { type: 'number', default: 0 },
-    rightTitle: { type: 'string', source: 'html', selector: '.post-right h2', default: 'Título de exemplo' },
-    rightDate: { type: 'string', source: 'html', selector: '.post-right .post-date', default: '30/02/2500' },
-    rightExcerpt: { type: 'string', source: 'html', selector: '.post-right .post-excerpt', default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+    rightTitle: { type: 'string', default: '' },
+    rightDate: { type: 'string', default: '' },
+    rightExcerpt: { type: 'string', default: '' },
     rightImageUrl: { type: 'string', default: '' },
-    rightImageId: { type: 'number', default: 0 },
+    rightPostUrl: { type: 'string', default: '' },
   },
 
   supports: { html: false },
 
   edit({ attributes, setAttributes }) {
     const {
-      leftPostId, leftTitle, leftDate, leftExcerpt, leftImageUrl, leftImageId,
-      rightPostId, rightTitle, rightDate, rightExcerpt, rightImageUrl, rightImageId
+      leftPostId, leftTitle, leftDate, leftExcerpt, leftImageUrl, leftPostUrl,
+      rightPostId, rightTitle, rightDate, rightExcerpt, rightImageUrl, rightPostUrl
     } = attributes;
 
     const blockProps = useBlockProps({ className: 'post-block w-full' });
@@ -42,7 +42,7 @@ registerBlockType('meutema/post-block', {
     useEffect(() => {
       let mounted = true;
       setLoadingPosts(true);
-      apiFetch({ path: '/wp/v2/posts?per_page=50&_fields=id,title,excerpt,date,featured_media' })
+      apiFetch({ path: '/wp/v2/posts?per_page=50&_fields=id,title,excerpt,date,featured_media,link' })
         .then((posts) => {
           if (!mounted) return;
           const opts = posts.map((p) => ({ value: p.id, label: (p.title && p.title.rendered) ? p.title.rendered : `Post ${p.id}`, raw: p }));
@@ -62,27 +62,18 @@ registerBlockType('meutema/post-block', {
 
     const onSelectPost = async (side, postId) => {
       if (!postId) {
-        // clear
         if (side === 'left') {
-          setAttributes({ leftPostId: 0, leftTitle: 'Título de exemplo', leftExcerpt: 'Lorem ipsum...', leftDate: '30/02/2500', leftImageUrl: '', leftImageId: 0 });
+          setAttributes({ leftPostId: 0, leftTitle: '', leftExcerpt: '', leftDate: '', leftImageUrl: '', leftPostUrl: '' });
         } else {
-          setAttributes({ rightPostId: 0, rightTitle: 'Título de exemplo', rightExcerpt: 'Lorem ipsum...', rightDate: '30/02/2500', rightImageUrl: '', rightImageId: 0 });
+          setAttributes({ rightPostId: 0, rightTitle: '', rightExcerpt: '', rightDate: '', rightImageUrl: '', rightPostUrl: '' });
         }
         return;
       }
 
       const postRaw = postsOptions.find((o) => o.value === postId)?.raw;
-      if (!postRaw) {
-        // fetch single post
-        const post = await apiFetch({ path: `/wp/v2/posts/${postId}?_fields=id,title,excerpt,date,featured_media` });
-        await applyPostToSide(side, post);
-      } else {
-        await applyPostToSide(side, postRaw);
-      }
-    };
+      const post = postRaw || await apiFetch({ path: `/wp/v2/posts/${postId}?_fields=id,title,excerpt,date,featured_media,link` });
+      const imageUrl = post.featured_media ? await fetchFeaturedImage(post.featured_media) : '';
 
-    const applyPostToSide = async (side, post) => {
-      const imageUrl = post.featured_media ? await fetchFeaturedImage(post.featured_media) : null;
       if (side === 'left') {
         setAttributes({
           leftPostId: post.id,
@@ -90,7 +81,7 @@ registerBlockType('meutema/post-block', {
           leftExcerpt: post.excerpt && post.excerpt.rendered ? stripTags(post.excerpt.rendered) : '',
           leftDate: post.date ? new Date(post.date).toLocaleDateString() : '',
           leftImageUrl: imageUrl || '',
-          leftImageId: post.featured_media || 0,
+          leftPostUrl: post.link || ''
         });
       } else {
         setAttributes({
@@ -99,85 +90,75 @@ registerBlockType('meutema/post-block', {
           rightExcerpt: post.excerpt && post.excerpt.rendered ? stripTags(post.excerpt.rendered) : '',
           rightDate: post.date ? new Date(post.date).toLocaleDateString() : '',
           rightImageUrl: imageUrl || '',
-          rightImageId: post.featured_media || 0,
+          rightPostUrl: post.link || ''
         });
       }
     };
 
-    const stripTags = (html) => {
-      return html ? html.replace(/<[^>]*>/g, '') : '';
-    };
+    const stripTags = (html) => html ? html.replace(/<[^>]*>/g, '') : '';
 
-    const onSelectLeftImage = (media) => setAttributes({ leftImageUrl: media.url, leftImageId: media.id });
-    const onSelectRightImage = (media) => setAttributes({ rightImageUrl: media.url, rightImageId: media.id });
-
+    // Editor preview: selection + read-only preview (no manual edits)
     return (
       <div {...blockProps}>
-        <div className="post-block__inner flex flex-wrap -mx-4">
-          {/* Left post */}
-          <div className="post-item post-left w-1/2 px-4">
-            <SelectControl
-              label="Selecionar post (esquerda)"
-              value={leftPostId}
-              options={[{ value: 0, label: '— Selecionar —' }, ...postsOptions]}
-              onChange={(val) => onSelectPost('left', Number(val))}
-              disabled={loadingPosts}
-            />
-
-            <div className="post-image mb-4 mt-2">
-              <MediaUpload
-                onSelect={onSelectLeftImage}
-                allowedTypes={[ 'image' ]}
-                value={leftImageId}
-                render={({ open }) => (
-                  <div>
-                    {leftImageUrl ? (
-                      <img src={leftImageUrl} alt="preview" className="w-full h-auto object-cover rounded" />
-                    ) : (
-                      <div className="w-full h-48 bg-gray-100 flex items-center justify-center rounded">Imagem do post (clique para selecionar)</div>
-                    )}
-                    <Button type="button" onClick={(e) => { e.preventDefault(); open(); }} className="mt-2" isSecondary>Selecionar imagem</Button>
-                  </div>
-                )}
+        <div className="mx-auto px-4" style={{ maxWidth: '1200px' }}>
+          <div className="post-block__inner flex flex-wrap -mx-4">
+            {/* Left post */}
+            <div className="post-item post-left w-1/2 px-4">
+              <SelectControl
+                label="Selecionar post (esquerda)"
+                value={leftPostId}
+                options={[{ value: 0, label: '— Selecionar —' }, ...postsOptions]}
+                onChange={(val) => onSelectPost('left', Number(val))}
+                disabled={loadingPosts}
               />
+
+              <div className="post-card border rounded overflow-hidden mt-3">
+                {leftImageUrl ? (
+                  <img src={leftImageUrl} alt="" className="w-full h-48 object-cover" />
+                ) : (
+                  <div className="w-full h-48 bg-gray-100 flex items-center justify-center">Sem imagem</div>
+                )}
+
+                <div className="p-4">
+                  <h3 className="font-heading text-h4 mb-2" dangerouslySetInnerHTML={{ __html: leftTitle }} />
+                  <div className="text-sm text-gray-600 mb-3">{leftDate}</div>
+                  <p className="text-base text-gray-800 line-clamp-3">{leftExcerpt}</p>
+                </div>
+
+                <div className="card-link-overlay">
+                  {/* visual only - link applied on frontend saved markup */}
+                </div>
+              </div>
             </div>
 
-            <RichText tagName="h2" value={leftTitle} onChange={(value) => setAttributes({ leftTitle: value })} placeholder="Título do post" className="post-title text-h3 font-heading mb-2" allowedFormats={['core/bold','core/italic']} />
-            <RichText tagName="div" value={leftDate} onChange={(value) => setAttributes({ leftDate: value })} placeholder="Data do post" className="post-date text-sm text-gray-600 mb-3" allowedFormats={[]} />
-            <RichText tagName="p" value={leftExcerpt} onChange={(value) => setAttributes({ leftExcerpt: value })} placeholder="Resumo do post" className="post-excerpt text-base text-gray-800" allowedFormats={['core/bold']} />
-          </div>
-
-          {/* Right post */}
-          <div className="post-item post-right w-1/2 px-4">
-            <SelectControl
-              label="Selecionar post (direita)"
-              value={rightPostId}
-              options={[{ value: 0, label: '— Selecionar —' }, ...postsOptions]}
-              onChange={(val) => onSelectPost('right', Number(val))}
-              disabled={loadingPosts}
-            />
-
-            <div className="post-image mb-4 mt-2">
-              <MediaUpload
-                onSelect={onSelectRightImage}
-                allowedTypes={[ 'image' ]}
-                value={rightImageId}
-                render={({ open }) => (
-                  <div>
-                    {rightImageUrl ? (
-                      <img src={rightImageUrl} alt="preview" className="w-full h-auto object-cover rounded" />
-                    ) : (
-                      <div className="w-full h-48 bg-gray-100 flex items-center justify-center rounded">Imagem do post (clique para selecionar)</div>
-                    )}
-                    <Button type="button" onClick={(e) => { e.preventDefault(); open(); }} className="mt-2" isSecondary>Selecionar imagem</Button>
-                  </div>
-                )}
+            {/* Right post */}
+            <div className="post-item post-right w-1/2 px-4">
+              <SelectControl
+                label="Selecionar post (direita)"
+                value={rightPostId}
+                options={[{ value: 0, label: '— Selecionar —' }, ...postsOptions]}
+                onChange={(val) => onSelectPost('right', Number(val))}
+                disabled={loadingPosts}
               />
-            </div>
 
-            <RichText tagName="h2" value={rightTitle} onChange={(value) => setAttributes({ rightTitle: value })} placeholder="Título do post" className="post-title text-h3 font-heading mb-2" allowedFormats={['core/bold','core/italic']} />
-            <RichText tagName="div" value={rightDate} onChange={(value) => setAttributes({ rightDate: value })} placeholder="Data do post" className="post-date text-sm text-gray-600 mb-3" allowedFormats={[]} />
-            <RichText tagName="p" value={rightExcerpt} onChange={(value) => setAttributes({ rightExcerpt: value })} placeholder="Resumo do post" className="post-excerpt text-base text-gray-800" allowedFormats={['core/bold']} />
+              <div className="post-card border rounded overflow-hidden mt-3">
+                {rightImageUrl ? (
+                  <img src={rightImageUrl} alt="" className="w-full h-48 object-cover" />
+                ) : (
+                  <div className="w-full h-48 bg-gray-100 flex items-center justify-center">Sem imagem</div>
+                )}
+
+                <div className="p-4">
+                  <h3 className="font-heading text-h4 mb-2" dangerouslySetInnerHTML={{ __html: rightTitle }} />
+                  <div className="text-sm text-gray-600 mb-3">{rightDate}</div>
+                  <p className="text-base text-gray-800 line-clamp-3">{rightExcerpt}</p>
+                </div>
+
+                <div className="card-link-overlay">
+                  {/* visual only - link applied on frontend saved markup */}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -185,35 +166,7 @@ registerBlockType('meutema/post-block', {
   },
 
   save({ attributes }) {
-    const {
-      leftTitle, leftDate, leftExcerpt, leftImageUrl,
-      rightTitle, rightDate, rightExcerpt, rightImageUrl
-    } = attributes;
-
-    const blockProps = useBlockProps.save({ className: 'post-block w-full' });
-
-    return (
-      <div {...blockProps}>
-        <div className="post-block__inner flex flex-wrap -mx-4">
-          <div className="post-item post-left w-1/2 px-4">
-            {leftImageUrl && (
-              <div className="post-image mb-4"><img src={leftImageUrl} alt="" className="w-full h-auto object-cover rounded" /></div>
-            )}
-            <h2 className="post-title text-h3 font-heading mb-2">{leftTitle}</h2>
-            <div className="post-date text-sm text-gray-600 mb-3">{leftDate}</div>
-            <p className="post-excerpt text-base text-gray-800">{leftExcerpt}</p>
-          </div>
-
-          <div className="post-item post-right w-1/2 px-4">
-            {rightImageUrl && (
-              <div className="post-image mb-4"><img src={rightImageUrl} alt="" className="w-full h-auto object-cover rounded" /></div>
-            )}
-            <h2 className="post-title text-h3 font-heading mb-2">{rightTitle}</h2>
-            <div className="post-date text-sm text-gray-600 mb-3">{rightDate}</div>
-            <p className="post-excerpt text-base text-gray-800">{rightExcerpt}</p>
-          </div>
-        </div>
-      </div>
-    );
-  },
+    // Server-side render — output handled by PHP. Return null so saved content is empty and WP will use render_callback.
+    return null;
+   },
 });

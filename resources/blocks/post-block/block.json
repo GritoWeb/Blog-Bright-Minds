@@ -1,0 +1,17 @@
+{
+  "apiVersion": 2,
+  "name": "meutema/post-block",
+  "title": "Post Block",
+  "category": "layout",
+  "description": "Bloco que mostra dois posts lado a lado. Escolha os posts a serem exibidos.",
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:./block.js",
+  "editorStyle": "file:./block.css",
+  "style": "file:./block.css",
+  "attributes": {
+    "leftPostId": { "type": "number", "default": 0 },
+    "rightPostId": { "type": "number", "default": 0 }
+  }
+}
