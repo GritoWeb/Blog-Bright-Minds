@@ -19,5 +19,6 @@ import '../blocks/page-title/block.jsx';
 import '../blocks/cta-video/block.jsx';
 import '../blocks/last-posts/block.jsx';
 import '../blocks/newsletter/block.jsx';
+import '../blocks/half-block/block.jsx';
 
 console.log('🎨 Auto Blocks - System loaded!');
