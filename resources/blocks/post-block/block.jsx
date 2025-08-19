@@ -14,19 +14,21 @@ registerBlockType('meutema/post-block', {
     leftTitle: { type: 'string', default: '' },
     leftDate: { type: 'string', default: '' },
     leftExcerpt: { type: 'string', default: '' },
+    leftLink: { type: 'string', default: '' },
 
     rightImageUrl: { type: 'string', default: '' },
     rightTitle: { type: 'string', default: '' },
     rightDate: { type: 'string', default: '' },
     rightExcerpt: { type: 'string', default: '' },
+    rightLink: { type: 'string', default: '' },
   },
 
   supports: { html: false },
 
   edit({ attributes, setAttributes }) {
     const {
-      leftImageUrl, leftTitle, leftDate, leftExcerpt,
-      rightImageUrl, rightTitle, rightDate, rightExcerpt
+      leftImageUrl, leftTitle, leftDate, leftExcerpt, leftLink,
+      rightImageUrl, rightTitle, rightDate, rightExcerpt, rightLink
     } = attributes;
 
     const blockProps = useBlockProps({ className: 'post-block w-full' });
@@ -44,7 +46,7 @@ registerBlockType('meutema/post-block', {
       <div {...blockProps}>
         <div className="mx-auto px-4" style={{ maxWidth: '1200px' }}>
           <div className="post-block__inner flex flex-wrap -mx-4">
-            <div className="post-item w-1/2 px-4">
+            <div className="post-item w-full md:w-1/2 px-4">
               <div className="mb-4">
                 <label className="block mb-2 font-medium">Imagem (esquerda)</label>
                 <MediaUploadCheck>
@@ -56,9 +58,9 @@ registerBlockType('meutema/post-block', {
                       <div>
                         <div className="mb-2">
                           {leftImageUrl ? (
-                            <img src={leftImageUrl} className="w-full h-48 object-cover rounded" alt="" />
+                            <img src={leftImageUrl} className="w-full aspect-square object-cover rounded transition duration-150 ease-in-out group-hover:brightness-110" alt="" />
                           ) : (
-                            <div className="w-full h-48 bg-gray-100 flex items-center justify-center text-gray-500">Sem imagem</div>
+                            <div className="w-full aspect-square bg-gray-100 flex items-center justify-center text-gray-500">Sem imagem</div>
                           )}
                         </div>
                         <Button onClick={(e) => { e.preventDefault(); open(); }} variant="secondary">Selecionar imagem</Button>
@@ -89,6 +91,15 @@ registerBlockType('meutema/post-block', {
               </div>
 
               <div className="mb-4">
+                <label className="block mt-2 mb-1">Link (esquerda)</label>
+                <TextControl
+                  value={leftLink}
+                  onChange={(val) => setAttributes({ leftLink: val })}
+                  placeholder="https://"
+                />
+              </div>
+
+              <div className="mb-4">
                 <label className="block mt-2 mb-1">Resumo (esquerda)</label>
                 <RichText
                   tagName="p"
@@ -100,7 +111,7 @@ registerBlockType('meutema/post-block', {
               </div>
             </div>
 
-            <div className="post-item w-1/2 px-4">
+            <div className="post-item w-full md:w-1/2 px-4">
               <div className="mb-4">
                 <label className="block mb-2 font-medium">Imagem (direita)</label>
                 <MediaUploadCheck>
@@ -112,9 +123,9 @@ registerBlockType('meutema/post-block', {
                       <div>
                         <div className="mb-2">
                           {rightImageUrl ? (
-                            <img src={rightImageUrl} className="w-full h-48 object-cover rounded" alt="" />
+                            <img src={rightImageUrl} className="w-full aspect-square object-cover rounded transition duration-150 ease-in-out group-hover:brightness-110" alt="" />
                           ) : (
-                            <div className="w-full h-48 bg-gray-100 flex items-center justify-center text-gray-500">Sem imagem</div>
+                            <div className="w-full aspect-square bg-gray-100 flex items-center justify-center text-gray-500">Sem imagem</div>
                           )}
                         </div>
                         <Button onClick={(e) => { e.preventDefault(); open(); }} variant="secondary">Selecionar imagem</Button>
@@ -145,6 +156,15 @@ registerBlockType('meutema/post-block', {
               </div>
 
               <div className="mb-4">
+                <label className="block mt-2 mb-1">Link (direita)</label>
+                <TextControl
+                  value={rightLink}
+                  onChange={(val) => setAttributes({ rightLink: val })}
+                  placeholder="https://"
+                />
+              </div>
+
+              <div className="mb-4">
                 <label className="block mt-2 mb-1">Resumo (direita)</label>
                 <RichText
                   tagName="p"
@@ -163,8 +183,8 @@ registerBlockType('meutema/post-block', {
 
   save({ attributes }) {
     const {
-      leftImageUrl, leftTitle, leftDate, leftExcerpt,
-      rightImageUrl, rightTitle, rightDate, rightExcerpt
+      leftImageUrl, leftTitle, leftDate, leftExcerpt, leftLink,
+      rightImageUrl, rightTitle, rightDate, rightExcerpt, rightLink
     } = attributes;
 
     const blockProps = useBlockProps.save({ className: 'post-block w-full' });
@@ -173,27 +193,49 @@ registerBlockType('meutema/post-block', {
       <div {...blockProps}>
         <div className="mx-auto px-4" style={{ maxWidth: '1200px' }}>
           <div className="post-pair__inner flex flex-wrap -mx-4">
-            <div className="post-item w-1/2 px-4">
-              <div className="post-card block overflow-hidden hover:shadow-lg transition-shadow">
-                {leftImageUrl ? <img src={leftImageUrl} alt="" className="w-full h-48 object-cover"/> : null}
-                <div className="p-4">
-                  {leftTitle ? <h3 className="font-heading text-h4 mb-2"><RichText.Content value={leftTitle} /></h3> : null}
-                  {leftDate ? <div className="text-sm text-gray-600 mb-3">{leftDate}</div> : null}
-                  {leftExcerpt ? <p className="text-base text-gray-800"><RichText.Content value={leftExcerpt} /></p> : null}
+            <div className="post-item w-full md:w-1/2 px-4">
+              {leftLink ? (
+                <a href={leftLink} className="post-card block overflow-hidden group no-underline" target="_self" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                  {leftImageUrl ? <img src={leftImageUrl} alt="" className="w-full aspect-square object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
+                  <div className="p-4">
+                    {leftTitle ? <h3 className="font-heading text-h4 mb-2 no-underline"><RichText.Content value={leftTitle} /></h3> : null}
+                    {leftDate ? <div className="text-sm text-gray-600 mb-3 no-underline">{leftDate}</div> : null}
+                    {leftExcerpt ? <p className="text-base text-gray-800 no-underline"><RichText.Content value={leftExcerpt} /></p> : null}
+                  </div>
+                </a>
+              ) : (
+                <div className="post-card block overflow-hidden group no-underline" style={{ textDecoration: 'none' }}>
+                  {leftImageUrl ? <img src={leftImageUrl} alt="" className="w-full aspect-square object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
+                  <div className="p-4">
+                    {leftTitle ? <h3 className="font-heading text-h4 mb-2 no-underline"><RichText.Content value={leftTitle} /></h3> : null}
+                    {leftDate ? <div className="text-sm text-gray-600 mb-3 no-underline">{leftDate}</div> : null}
+                    {leftExcerpt ? <p className="text-base text-gray-800 no-underline"><RichText.Content value={leftExcerpt} /></p> : null}
+                  </div>
                 </div>
-              </div>
-            </div>
+              )}
+             </div>
 
-            <div className="post-item w-1/2 px-4">
-              <div className="post-card block overflow-hidden hover:shadow-lg transition-shadow">
-                {rightImageUrl ? <img src={rightImageUrl} alt="" className="w-full h-48 object-cover"/> : null}
-                <div className="p-4">
-                  {rightTitle ? <h3 className="font-heading text-h4 mb-2"><RichText.Content value={rightTitle} /></h3> : null}
-                  {rightDate ? <div className="text-sm text-gray-600 mb-3">{rightDate}</div> : null}
-                  {rightExcerpt ? <p className="text-base text-gray-800"><RichText.Content value={rightExcerpt} /></p> : null}
+             <div className="post-item w-full md:w-1/2 px-4">
+              {rightLink ? (
+                <a href={rightLink} className="post-card block overflow-hidden group no-underline" target="_self" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                  {rightImageUrl ? <img src={rightImageUrl} alt="" className="w-full aspect-square object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
+                  <div className="p-4">
+                    {rightTitle ? <h3 className="font-heading text-h4 mb-2 no-underline"><RichText.Content value={rightTitle} /></h3> : null}
+                    {rightDate ? <div className="text-sm text-gray-600 mb-3 no-underline">{rightDate}</div> : null}
+                    {rightExcerpt ? <p className="text-base text-gray-800 no-underline"><RichText.Content value={rightExcerpt} /></p> : null}
+                  </div>
+                </a>
+              ) : (
+                <div className="post-card block overflow-hidden group no-underline" style={{ textDecoration: 'none' }}>
+                  {rightImageUrl ? <img src={rightImageUrl} alt="" className="w-full aspect-square object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
+                  <div className="p-4">
+                    {rightTitle ? <h3 className="font-heading text-h4 mb-2 no-underline"><RichText.Content value={rightTitle} /></h3> : null}
+                    {rightDate ? <div className="text-sm text-gray-600 mb-3 no-underline">{rightDate}</div> : null}
+                    {rightExcerpt ? <p className="text-base text-gray-800 no-underline"><RichText.Content value={rightExcerpt} /></p> : null}
+                  </div>
                 </div>
-              </div>
-            </div>
+              )}
+             </div>
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@
     "isEntry": true
   },
   "resources/blocks/post-block/block.jsx": {
-    "file": "assets/block-BkXrZD5H.js",
+    "file": "assets/block-BVfdpIGa.js",
     "name": "block",
     "src": "resources/blocks/post-block/block.jsx",
     "isEntry": true
@@ -55,7 +55,7 @@
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-Di0DqAeY.css",
+    "file": "assets/app-B9TSRyD0.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -65,21 +65,21 @@
     "isEntry": true
   },
   "resources/css/editor.css": {
-    "file": "assets/editor-nNES-wFr.css",
+    "file": "assets/editor-Cp4ly3cw.css",
     "src": "resources/css/editor.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-RUjYIZFY.js",
+    "file": "assets/app-DKVZ17hj.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-Di0DqAeY.css"
+      "assets/app-B9TSRyD0.css"
     ]
   },
   "resources/js/blocks.js": {
-    "file": "assets/blocks-D8ssiWwa.js",
+    "file": "assets/blocks-CQVuWD7I.js",
     "name": "blocks",
     "src": "resources/js/blocks.js",
     "isEntry": true,
@@ -94,7 +94,7 @@
     ]
   },
   "resources/js/editor.js": {
-    "file": "assets/editor-C0iySOUq.js",
+    "file": "assets/editor-Q8Bk31GM.js",
     "name": "editor",
     "src": "resources/js/editor.js",
     "isEntry": true,
@@ -106,7 +106,7 @@
       "resources/blocks/post-block/block.jsx"
     ],
     "css": [
-      "assets/editor-nNES-wFr.css",
+      "assets/editor-Cp4ly3cw.css",
       "assets/blocks-DUf_qGu0.css"
     ]
   }
