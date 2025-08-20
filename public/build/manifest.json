@@ -43,7 +43,7 @@
     "isEntry": true
   },
   "resources/blocks/post-block/block.jsx": {
-    "file": "assets/block-BVfdpIGa.js",
+    "file": "assets/block-BFsjhd3N.js",
     "name": "block",
     "src": "resources/blocks/post-block/block.jsx",
     "isEntry": true
@@ -79,7 +79,7 @@
     ]
   },
   "resources/js/blocks.js": {
-    "file": "assets/blocks-CQVuWD7I.js",
+    "file": "assets/blocks-DehGePiA.js",
     "name": "blocks",
     "src": "resources/js/blocks.js",
     "isEntry": true,
@@ -94,7 +94,7 @@
     ]
   },
   "resources/js/editor.js": {
-    "file": "assets/editor-Q8Bk31GM.js",
+    "file": "assets/editor-FLYLLazS.js",
     "name": "editor",
     "src": "resources/js/editor.js",
     "isEntry": true,

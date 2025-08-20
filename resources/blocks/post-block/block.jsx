@@ -189,14 +189,33 @@ registerBlockType('meutema/post-block', {
 
     const blockProps = useBlockProps.save({ className: 'post-block w-full' });
 
+    const cardStyle = {
+      textDecoration: 'none'
+    };
+
+    const imageStyleDesktop = `
+      .post-card img {
+        width: 384px;
+        height: 256px;
+        object-fit: cover;
+      }
+      @media (min-width: 768px) {
+        .post-card img {
+          width: 555px !important;
+          height: 370px !important;
+        }
+      }
+    `;
+
     return (
       <div {...blockProps}>
+        <style dangerouslySetInnerHTML={{ __html: imageStyleDesktop }} />
         <div className="mx-auto px-4" style={{ maxWidth: '1200px' }}>
           <div className="post-pair__inner flex flex-wrap -mx-4">
             <div className="post-item w-full md:w-1/2 px-4">
               {leftLink ? (
-                <a href={leftLink} className="post-card block overflow-hidden group no-underline" target="_self" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                  {leftImageUrl ? <img src={leftImageUrl} alt="" className="w-full aspect-square object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
+                <a href={leftLink} className="post-card block overflow-hidden group no-underline" target="_self" rel="noopener noreferrer" style={cardStyle}>
+                  {leftImageUrl ? <img src={leftImageUrl} alt="" className="w-full object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
                   <div className="p-4">
                     {leftTitle ? <h3 className="font-heading text-h4 mb-2 no-underline"><RichText.Content value={leftTitle} /></h3> : null}
                     {leftDate ? <div className="text-sm text-gray-600 mb-3 no-underline">{leftDate}</div> : null}
@@ -204,8 +223,8 @@ registerBlockType('meutema/post-block', {
                   </div>
                 </a>
               ) : (
-                <div className="post-card block overflow-hidden group no-underline" style={{ textDecoration: 'none' }}>
-                  {leftImageUrl ? <img src={leftImageUrl} alt="" className="w-full aspect-square object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
+                <div className="post-card block overflow-hidden group no-underline" style={cardStyle}>
+                  {leftImageUrl ? <img src={leftImageUrl} alt="" className="w-full object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
                   <div className="p-4">
                     {leftTitle ? <h3 className="font-heading text-h4 mb-2 no-underline"><RichText.Content value={leftTitle} /></h3> : null}
                     {leftDate ? <div className="text-sm text-gray-600 mb-3 no-underline">{leftDate}</div> : null}
@@ -217,8 +236,8 @@ registerBlockType('meutema/post-block', {
 
              <div className="post-item w-full md:w-1/2 px-4">
               {rightLink ? (
-                <a href={rightLink} className="post-card block overflow-hidden group no-underline" target="_self" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                  {rightImageUrl ? <img src={rightImageUrl} alt="" className="w-full aspect-square object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
+                <a href={rightLink} className="post-card block overflow-hidden group no-underline" target="_self" rel="noopener noreferrer" style={cardStyle}>
+                  {rightImageUrl ? <img src={rightImageUrl} alt="" className="w-full object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
                   <div className="p-4">
                     {rightTitle ? <h3 className="font-heading text-h4 mb-2 no-underline"><RichText.Content value={rightTitle} /></h3> : null}
                     {rightDate ? <div className="text-sm text-gray-600 mb-3 no-underline">{rightDate}</div> : null}
@@ -226,8 +245,8 @@ registerBlockType('meutema/post-block', {
                   </div>
                 </a>
               ) : (
-                <div className="post-card block overflow-hidden group no-underline" style={{ textDecoration: 'none' }}>
-                  {rightImageUrl ? <img src={rightImageUrl} alt="" className="w-full aspect-square object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
+                <div className="post-card block overflow-hidden group no-underline" style={cardStyle}>
+                  {rightImageUrl ? <img src={rightImageUrl} alt="" className="w-full object-cover transition duration-150 ease-in-out group-hover:brightness-110"/> : null}
                   <div className="p-4">
                     {rightTitle ? <h3 className="font-heading text-h4 mb-2 no-underline"><RichText.Content value={rightTitle} /></h3> : null}
                     {rightDate ? <div className="text-sm text-gray-600 mb-3 no-underline">{rightDate}</div> : null}
