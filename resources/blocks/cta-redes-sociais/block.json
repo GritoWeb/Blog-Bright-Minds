@@ -1,0 +1,13 @@
+{
+  "apiVersion": 2,
+  "name": "doctailwind/cta-redes-sociais",
+  "title": "CTA Redes Sociais",
+  "category": "widgets",
+  "icon": "share",
+  "description": "Bloco de call-to-action para redes sociais com título, descrição e ícones sociais.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "meutema",
+  "editorScript": "file:./block.jsx"
+}

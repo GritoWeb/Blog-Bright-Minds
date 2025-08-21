@@ -3,6 +3,12 @@
     "file": "assets/editor.deps-DhH9q-FW.json",
     "src": "editor.deps.json"
   },
+  "resources/blocks/cta-redes-sociais/block.jsx": {
+    "file": "assets/block-0AmMLAlF.js",
+    "name": "block",
+    "src": "resources/blocks/cta-redes-sociais/block.jsx",
+    "isEntry": true
+  },
   "resources/blocks/cta-video/block.css": {
     "file": "assets/block-C0tv-Y2A.css",
     "src": "resources/blocks/cta-video/block.css",
@@ -55,7 +61,7 @@
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-B9TSRyD0.css",
+    "file": "assets/app-D2ZhOpAH.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -65,21 +71,21 @@
     "isEntry": true
   },
   "resources/css/editor.css": {
-    "file": "assets/editor-Cp4ly3cw.css",
+    "file": "assets/editor-ClIh6r9f.css",
     "src": "resources/css/editor.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DKVZ17hj.js",
+    "file": "assets/app-D1Ud2GO7.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-B9TSRyD0.css"
+      "assets/app-D2ZhOpAH.css"
     ]
   },
   "resources/js/blocks.js": {
-    "file": "assets/blocks-DehGePiA.js",
+    "file": "assets/blocks-Djl0zxXA.js",
     "name": "blocks",
     "src": "resources/js/blocks.js",
     "isEntry": true,
@@ -87,14 +93,15 @@
       "resources/blocks/page-title/block.jsx",
       "resources/blocks/cta-video/block.jsx",
       "resources/blocks/newsletter/block.jsx",
-      "resources/blocks/post-block/block.jsx"
+      "resources/blocks/post-block/block.jsx",
+      "resources/blocks/cta-redes-sociais/block.jsx"
     ],
     "css": [
       "assets/blocks-DUf_qGu0.css"
     ]
   },
   "resources/js/editor.js": {
-    "file": "assets/editor-FLYLLazS.js",
+    "file": "assets/editor-BQoYrWYa.js",
     "name": "editor",
     "src": "resources/js/editor.js",
     "isEntry": true,
@@ -103,10 +110,11 @@
       "resources/blocks/page-title/block.jsx",
       "resources/blocks/cta-video/block.jsx",
       "resources/blocks/newsletter/block.jsx",
-      "resources/blocks/post-block/block.jsx"
+      "resources/blocks/post-block/block.jsx",
+      "resources/blocks/cta-redes-sociais/block.jsx"
     ],
     "css": [
-      "assets/editor-Cp4ly3cw.css",
+      "assets/editor-ClIh6r9f.css",
       "assets/blocks-DUf_qGu0.css"
     ]
   }

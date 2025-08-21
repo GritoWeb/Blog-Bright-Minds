@@ -111,3 +111,11 @@ h4 {
   font-size: var(--font-size-h4);
   line-height: var(--line-height-h4);
 }
+
+/* Responsive typography for mobile */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 30px !important;
+    line-height: 1.2;
+  }
+}

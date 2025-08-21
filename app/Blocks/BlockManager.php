@@ -21,6 +21,7 @@ class BlockManager
             'cta-video',
             'page-title',
             'post-block',
+            'cta-redes-sociais',
     ];
 
     /**
