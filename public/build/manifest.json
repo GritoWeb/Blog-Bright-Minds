@@ -1,10 +1,10 @@
 {
   "editor.deps.json": {
-    "file": "assets/editor.deps-DhH9q-FW.json",
+    "file": "assets/editor.deps-BrHEvzTu.json",
     "src": "editor.deps.json"
   },
   "resources/blocks/cta-redes-sociais/block.jsx": {
-    "file": "assets/block-0AmMLAlF.js",
+    "file": "assets/block-63yihxiI.js",
     "name": "block",
     "src": "resources/blocks/cta-redes-sociais/block.jsx",
     "isEntry": true
@@ -15,7 +15,7 @@
     "isEntry": true
   },
   "resources/blocks/cta-video/block.jsx": {
-    "file": "assets/block-C4F_XhQu.js",
+    "file": "assets/block-B_Ef8BLz.js",
     "name": "block",
     "src": "resources/blocks/cta-video/block.jsx",
     "isEntry": true
@@ -32,7 +32,7 @@
     "isEntry": true
   },
   "resources/blocks/newsletter/block.jsx": {
-    "file": "assets/block-pV6411t_.js",
+    "file": "assets/block-QYm9VL_7.js",
     "name": "block",
     "src": "resources/blocks/newsletter/block.jsx",
     "isEntry": true
@@ -43,13 +43,13 @@
     "isEntry": true
   },
   "resources/blocks/page-title/block.jsx": {
-    "file": "assets/block-Bu_zH_fT.js",
+    "file": "assets/block-CmRA5p_y.js",
     "name": "block",
     "src": "resources/blocks/page-title/block.jsx",
     "isEntry": true
   },
   "resources/blocks/post-block/block.jsx": {
-    "file": "assets/block-BFsjhd3N.js",
+    "file": "assets/block-BxzUrDnZ.js",
     "name": "block",
     "src": "resources/blocks/post-block/block.jsx",
     "isEntry": true
@@ -61,7 +61,7 @@
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-D2ZhOpAH.css",
+    "file": "assets/app-DE2cCrPo.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -71,21 +71,21 @@
     "isEntry": true
   },
   "resources/css/editor.css": {
-    "file": "assets/editor-ClIh6r9f.css",
+    "file": "assets/editor-Dk0H7gYS.css",
     "src": "resources/css/editor.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-D1Ud2GO7.js",
+    "file": "assets/app-sA7T1zrD.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-D2ZhOpAH.css"
+      "assets/app-DE2cCrPo.css"
     ]
   },
   "resources/js/blocks.js": {
-    "file": "assets/blocks-Djl0zxXA.js",
+    "file": "assets/blocks-CE0KYyoU.js",
     "name": "blocks",
     "src": "resources/js/blocks.js",
     "isEntry": true,
@@ -101,7 +101,7 @@
     ]
   },
   "resources/js/editor.js": {
-    "file": "assets/editor-BQoYrWYa.js",
+    "file": "assets/editor-Cfd_ODsX.js",
     "name": "editor",
     "src": "resources/js/editor.js",
     "isEntry": true,
@@ -114,7 +114,7 @@
       "resources/blocks/cta-redes-sociais/block.jsx"
     ],
     "css": [
-      "assets/editor-ClIh6r9f.css",
+      "assets/editor-Dk0H7gYS.css",
       "assets/blocks-DUf_qGu0.css"
     ]
   }

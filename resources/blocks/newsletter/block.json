@@ -1,7 +1,7 @@
 {
     "name": "doctailwind/newsletter",
     "title": "Newsletter",
-    "category": "design",
+    "category": "blocos-personalizados",
     "icon": "block-default",
     "description": "Custom Newsletter block",
     "textdomain": "doctailwind",

@@ -1,9 +1,9 @@
 {
     "name": "doctailwind/cta-video",
-    "title": "Cta Video",
-    "category": "design",
+    "title": "Video",
+    "category": "blocos-personalizados",
     "icon": "block-default",
-    "description": "Custom Cta Video block",
+    "description": "Custom Video block",
     "textdomain": "doctailwind",
     "editorScript": "file:./block.jsx",
     "style": "file:./block.css",

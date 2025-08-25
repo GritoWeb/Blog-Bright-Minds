@@ -3,9 +3,9 @@ import { useBlockProps, RichText, MediaUpload, MediaUploadCheck } from '@wordpre
 import { Button, TextControl } from '@wordpress/components';
 
 registerBlockType('doctailwind/cta-video', {
-    title: 'CTA Video',
+    title: 'Video',
     icon: 'video-alt3',
-    category: 'design',
+    category: 'blocos-personalizados',
     description: 'Bloco de call-to-action com vídeo do YouTube',
     
     attributes: {

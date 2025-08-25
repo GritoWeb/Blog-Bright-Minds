@@ -2,9 +2,9 @@ import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 registerBlockType('doctailwind/page-title', {
-    title: 'Page Title',
+    title: 'Titulo Seção',
     icon: 'heading',
-    category: 'design',
+    category: 'blocos-personalizados',
     description: 'Título de página centralizado e editável com cor primária',
     
     attributes: {

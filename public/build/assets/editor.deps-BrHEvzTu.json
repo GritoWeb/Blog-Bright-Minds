@@ -2,5 +2,6 @@
   "wp-blocks",
   "wp-block-editor",
   "wp-components",
-  "wp-element"
+  "wp-data",
+  "wp-html-entities"
 ]

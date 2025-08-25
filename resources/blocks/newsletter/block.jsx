@@ -10,7 +10,7 @@ import { Button } from '@wordpress/components';
 registerBlockType('meutema/newsletter', {
   title: 'Newsletter',
   icon: 'email',
-  category: 'custom blocks',
+  category: 'blocos-personalizados',
   
   attributes: {
     backgroundImage: {

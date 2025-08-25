@@ -1,8 +1,8 @@
 {
   "apiVersion": 2,
   "name": "doctailwind/cta-redes-sociais",
-  "title": "CTA Redes Sociais",
-  "category": "widgets",
+  "title": "Redes Sociais",
+  "category": "blocos-personalizados",
   "icon": "share",
   "description": "Bloco de call-to-action para redes sociais com título, descrição e ícones sociais.",
   "supports": {

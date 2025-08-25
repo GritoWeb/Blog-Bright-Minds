@@ -1,7 +1,7 @@
 {
     "name": "doctailwind/page-title",
-    "title": "Page Title",
-    "category": "design",
+    "title": "Titulo Seção",
+    "category": "blocos-personalizados",
     "icon": "block-default",
     "description": "Custom Page Title block",
     "textdomain": "doctailwind",

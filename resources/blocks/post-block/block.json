@@ -1,17 +1,15 @@
 {
   "apiVersion": 2,
   "name": "meutema/post-block",
-  "title": "Post Block",
-  "category": "layout",
-  "description": "Bloco que mostra dois posts lado a lado. Escolha os posts a serem exibidos.",
+  "title": "Listagem Posts",
+  "category": "blocos-personalizados",
+  "description": "Bloco que mostra os últimos 6 posts em formato de cards.",
   "supports": {
     "html": false
   },
   "editorScript": "file:./block.jsx",
   "editorStyle": "file:./block.css",
   "style": "file:./block.css",
-  "attributes": {
-    "leftPostId": { "type": "number", "default": 0 },
-    "rightPostId": { "type": "number", "default": 0 }
-  }
+  "attributes": {},
+  "render": "file:./render.php"
 }

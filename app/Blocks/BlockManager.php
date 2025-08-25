@@ -34,6 +34,9 @@ class BlockManager
      */
     public function register(): void
     {
+        // Register custom block categories
+        add_filter('block_categories_all', [$this, 'registerBlockCategories'], 10, 2);
+        
         // Register blocks in WordPress
         foreach ($this->blocks as $blockName) {
             $this->registerSingleBlock($blockName);
@@ -286,5 +289,23 @@ class BlockManager
                 error_log("BlockManager: Block-specific CSS loaded for '{$blockName}': {$assetUrl}");
             }
         }
+    }
+
+    /**
+     * Register custom block categories
+     */
+    public function registerBlockCategories($categories, $editor_context)
+    {
+        // Add custom category at the beginning (top of the list)
+        return array_merge(
+            [
+                [
+                    'slug'  => 'blocos-personalizados',
+                    'title' => __('Blocos Personalizados', 'doctailwind'),
+                    'icon'  => 'block-default'
+                ]
+            ],
+            $categories
+        );
     }
 }
